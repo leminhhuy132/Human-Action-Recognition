@@ -10,12 +10,12 @@ from collections import Counter
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 
-class_names = ['Standing', 'Walking', 'Sitting', 'Lying Down', 'Stand up', 'Sit down', 'Fall Down']
-main_parts = ['LShoulder_x', 'LShoulder_y', 'RShoulder_x', 'RShoulder_y', 'LHip_x', 'LHip_y',
-              'RHip_x', 'RHip_y']
+class_names = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk', 'Nomal']
+main_parts = ['Nose_x', 'Nose_y', 'LShoulder_x', 'LShoulder_y', 'RShoulder_x', 'RShoulder_y', 'LElbow_x', 'LElbow_y', 'RElbow_x',
+              'RElbow_y', 'LWrist_x', 'LWrist_y',  'RWrist_x', 'RWrist_y']
 main_idx_parts = [1, 2, 7, 8, -1]  # 1.5
-csv_pose_file = '../Data/AllStep2.csv'
-save_path = '../Data/train.pkl'
+csv_pose_file = 'Home-pose+score.csv'
+save_path = 'train.pkl'
 
 # Params.
 smooth_labels_step = 8

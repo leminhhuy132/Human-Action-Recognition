@@ -6,3 +6,8 @@ __pycache__/
 *.avi
 *.mp4
 *.cfg
+*.txt
+*.zip
+*.MOV
+*.png
+*.csv

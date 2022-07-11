@@ -3,11 +3,11 @@ import cv2
 import pandas as pd
 
 
-video_folder = '/home/thien/Desktop/Human-Falling-Detect-Tracks/videos'
-annot_folder = '/home/thien/Desktop/Human-Falling-Detect-Tracks/annot'  # bounding box annotation for each frame.
+video_folder = 'Home/videos'
+annot_folder = 'Home/annot'  # bounding box annotation for each frame.
 
 
-class_names = ['Standing', 'Walking', 'Sitting', 'Lying Down', 'Stand up', 'Sit down', 'Fall Down']
+class_names = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk', 'Nomal']
 # with score.
 
 

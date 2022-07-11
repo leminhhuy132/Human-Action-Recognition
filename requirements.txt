@@ -1,0 +1,7 @@
+opencv-python
+tqdm
+scipy
+matplotlib
+pandas
+sklearn
+imageio

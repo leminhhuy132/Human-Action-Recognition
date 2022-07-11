@@ -135,11 +135,11 @@ def plot_multiImage(images, labels=None, pred=None, title=None, fig_size=(12, 10
 
 def plot_confusion_metrix(y_true, y_pred, labels=None, title='', normalize=None,
                           fig_size=(10, 10), save=None):
-    cm = confusion_matrix(y_true, y_pred, normalize=normalize)
+    cm = confusion_matrix(y_true=y_true, y_pred=y_pred, normalize=normalize)
     if labels is None:
         labels = list(set(y_true))
 
-    disp = ConfusionMatrixDisplay(cm, labels)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
     disp.plot(xticks_rotation=45)
     disp.figure_.set_size_inches(fig_size)
     disp.figure_.suptitle(title)

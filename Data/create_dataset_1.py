@@ -14,11 +14,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-class_names = ['Standing', 'Walking', 'Sitting', 'Lying Down','Stand up', 'Sit down', 'Fall Down']
+class_names = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk', 'Nomal']
 
-video_folder = '/home/minhhuy/Desktop/Python/Human-Falling-Detect-Tracks/Data/falldata/Home/Videos'
-annot_file = '../Data/Home_new.csv'
-annot_file_2 = '../Data/Home_new_2.csv'
+video_folder = 'Home/videos'
+annot_file = 'Home_new.csv'
+annot_file_2 = 'Home_new_2.csv'
 
 
 def create_csv(folder):
@@ -84,45 +84,36 @@ while index_video_to_play < len(video_list):
                 video_list[index_video_to_play], frames_count, i + 1, cls_name),
                                 (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.65, (255, 0, 0), 2)
 
-            frame = cv2.putText(frame, 'Back:  a', (10, 270), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-            frame = cv2.putText(frame, 'Standing:   0', (10, 300), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Walking:    1', (10, 330), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Sitting:    2', (10, 360), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Lying Down: 3', (10, 390), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Stand Up:   4', (10, 420), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Sit Down:   5', (10, 450), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Fall Down:  6', (10, 480), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+            frame = cv2.putText(frame, 'Back video:  b', (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+            frame = cv2.putText(frame, 'Back:  a', (10, 130), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+            frame = cv2.putText(frame, 'Writing:   0', (10, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+            frame = cv2.putText(frame, 'Raising hand:    1', (10, 330), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+            frame = cv2.putText(frame, 'Turned around:    2', (10, 360), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+            frame = cv2.putText(frame, 'Lie on the desk: 3', (10, 390), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+            frame = cv2.putText(frame, 'Nomal:   4', (10, 420), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
             cv2.imshow('frame', frame)
 
             key = cv2.waitKey(1) & 0xFF
             if key == ord('q'):
                 break
-            elif key == ord('0'):  # standing
+            elif key == ord('0'):  # Writing
                 i += 1
                 k = 0
                 continue
-            elif key == ord('1'):  # walking
+            elif key == ord('1'):  # Raising hand
                 i += 1
                 k = 1
                 continue
-            elif key == ord('2'):  # sitting
+            elif key == ord('2'):
                 i += 1
                 k = 2
-            elif key == ord('3'):  # lying down
+            elif key == ord('3'):
                 i += 1
                 k = 3
                 continue
-            elif key == ord('4'):  # stand up
+            elif key == ord('4'):
                 i += 1
                 k = 4
-            elif key == ord('5'):  # sit down
-                i += 1
-                k = 5
-                continue
-            elif key == ord('6'):  # fall down
-                i += 1
-                k = 6
-                continue
             elif key == ord('a'):  # back
                 i -= 1
                 continue

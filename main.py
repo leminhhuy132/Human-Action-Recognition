@@ -17,8 +17,8 @@ from ActionsEstLoader import TSSTG
 
 #source = '../Data/test_video/test7.mp4'
 #source = '../Data/falldata/Home/Videos/video (2).avi'  # hard detect
-# source = '../Data/falldata/Home/Videos/MOT16-03.mp4'
-source = 0
+source = '../Data/falldata/Home/Videos/MOT16-03.mp4'
+# source = 0
 
 
 def preproc(image):

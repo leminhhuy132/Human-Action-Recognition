@@ -19,11 +19,11 @@ from DetectorLoader import TinyYOLOv3_onecls
 from PoseEstimateLoader import SPPE_FastPose
 from fn import vis_frame_fast
 
-save_path = '../../Data/Home-pose+score.csv'
+save_path = 'Home-pose+score.csv'
 
-annot_file = '../Data/Home_new.csv'  # from create_dataset_1.py
-video_folder = '../Data/falldata/Home/Videos/'
-annotation_folder = '../Data/falldata/Home/Annotation_files'  # bounding box annotation for each frame.
+annot_file = 'Home_new.csv'  # from create_dataset_1.py
+video_folder = 'Home/videos/'
+annotation_folder = 'Home/annot'  # bounding box annotation for each frame.
 
 # DETECTION MODEL.
 detector = TinyYOLOv3_onecls()
@@ -32,7 +32,7 @@ detector = TinyYOLOv3_onecls()
 inp_h = 320
 inp_w = 256
 pose_estimator = SPPE_FastPose(inp_h, inp_w)
-class_names = ['Standing', 'Walking', 'Sitting', 'Lying Down', 'Stand up', 'Sit down', 'Fall Down']
+class_names = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk', 'Nomal']
 # with score.
 columns = ['video', 'frame', 'Nose_x', 'Nose_y', 'Nose_s', 'LShoulder_x', 'LShoulder_y', 'LShoulder_s',
            'RShoulder_x', 'RShoulder_y', 'RShoulder_s', 'LElbow_x', 'LElbow_y', 'LElbow_s', 'RElbow_x',
