@@ -8,6 +8,7 @@ from threading import Thread
 
 from Detection.Models import Darknet
 from Detection.Utils import non_max_suppression, ResizePadding
+import config
 
 
 class TinyYOLOv3_onecls(object):
@@ -22,8 +23,8 @@ class TinyYOLOv3_onecls(object):
     """
     def __init__(self,
                  input_size=416,
-                 config_file='Models/yolo-tiny-onecls/yolov3-tiny-onecls.cfg',
-                 weight_file='Models/yolo-tiny-onecls/best-model.pth',
+                 config_file=config.yolo_cfg,
+                 weight_file=config.yolo,
                  nms=0.2,
                  conf_thres=0.45,
                  device='cuda'):

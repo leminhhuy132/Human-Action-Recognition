@@ -48,10 +48,14 @@ if __name__ == '__main__':
                         help='Size of input in pose model must be divisible by 32 (h, w)')
     par.add_argument('--pose_backbone', type=str, default='resnet50',
                         help='Backbone model for SPPE FastPose model.')
-    par.add_argument('--show_detected', default=False, action='store_true',
-                        help='Show all bounding box from detection.')
-    par.add_argument('--show_skeleton', default=True, action='store_true',
-                        help='Show skeleton pose.')
+    # par.add_argument('--show_detected', default=False, action='store_true',
+    #                     help='Show all bounding box from detection.')
+    # par.add_argument('--show_skeleton', default=True, action='store_true',
+    #                     help='Show skeleton pose.')
+    par.add_argument('--show_detected', default='False', type=str,
+                     help='Show all bounding box from detection.')
+    par.add_argument('--show_skeleton', type=str, default='True',
+                     help='Show skeleton pose.')
     par.add_argument('--save_out', type=str, default='',
                         help='Save display to video file.')
     par.add_argument('--device', type=str, default='cuda',
@@ -128,7 +132,7 @@ if __name__ == '__main__':
                                     ps['kp_score'].mean().numpy()) for ps in poses]
 
             # VISUALIZE.
-            if args.show_detected:
+            if args.show_detected == 'True':
                 for bb in detected[:, 0:5]:
                     frame = cv2.rectangle(frame, (bb[0], bb[1]), (bb[2], bb[3]), (0, 0, 255), 1)
 
@@ -160,7 +164,7 @@ if __name__ == '__main__':
 
             # VISUALIZE.
             if track.time_since_update == 0:
-                if args.show_skeleton:
+                if args.show_skeleton == 'True':
                     frame = draw_single(frame, track.keypoints_list[-1])
                 frame = cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0, 255, 0), 1)
                 frame = cv2.putText(frame, str(track_id), (center[0], center[1]), cv2.FONT_HERSHEY_COMPLEX,

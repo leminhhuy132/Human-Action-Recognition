@@ -4,6 +4,7 @@ import numpy as np
 
 from Actionsrecognition.Models import TwoStreamSpatialTemporalGraph
 from pose_utils import normalize_points_with_size, scale_pose
+import config
 
 
 class TSSTG(object):
@@ -13,10 +14,10 @@ class TSSTG(object):
         device: (str) Device to load the model on 'cpu' or 'cuda'.
     """
     def __init__(self,
-                 weight_file='./Models/TSSTG/tsstg-model.pth',
+                 weight_file=config.tsstg,
                  device='cuda'):
         self.graph_args = {'strategy': 'spatial'}
-        self.class_names = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk', 'Nomal']
+        self.class_names = config.class_names
         self.num_class = len(self.class_names)
         self.device = device
 

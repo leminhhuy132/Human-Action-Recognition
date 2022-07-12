@@ -13,12 +13,12 @@ import time
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from config import class_names, mode
 
-class_names = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk', 'Nomal']
 
 video_folder = 'Home/videos'
-annot_file = 'Home_new.csv'
-annot_file_2 = 'Home_new_2.csv'
+annot_file = 'thi.csv'
+annot_file_2 = 'thi_2.csv'
 
 
 def create_csv(folder):
@@ -79,52 +79,84 @@ while index_video_to_play < len(video_list):
             ipre = i
         if ret:
             cls_name = class_names[label[i - 1]]
-            frame = cv2.resize(frame, (0, 0), fx=3.5, fy=3.5)
+            frame = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
             frame = cv2.putText(frame, 'Videos: {}     Total_frames: {}        Frame: {}       Pose: {} '.format(
                 video_list[index_video_to_play], frames_count, i + 1, cls_name),
                                 (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.65, (255, 0, 0), 2)
 
-            frame = cv2.putText(frame, 'Back video:  b', (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-            frame = cv2.putText(frame, 'Back:  a', (10, 130), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-            frame = cv2.putText(frame, 'Writing:   0', (10, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Raising hand:    1', (10, 330), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Turned around:    2', (10, 360), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Lie on the desk: 3', (10, 390), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Nomal:   4', (10, 420), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            cv2.imshow('frame', frame)
+            if mode == 'study':
+                frame = cv2.putText(frame, 'Back video:  b', (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                frame = cv2.putText(frame, 'Back:  a', (10, 130), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                frame = cv2.putText(frame, 'Writing:   0', (10, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+                frame = cv2.putText(frame, 'Raising hand:    1', (10, 230), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+                frame = cv2.putText(frame, 'Turned around:    2', (10, 260), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+                frame = cv2.putText(frame, 'Lie on the desk: 3', (10, 290), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+                frame = cv2.putText(frame, 'Nomal:   4', (10, 420), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+                cv2.imshow('frame', frame)
 
-            key = cv2.waitKey(1) & 0xFF
-            if key == ord('q'):
-                break
-            elif key == ord('0'):  # Writing
-                i += 1
-                k = 0
-                continue
-            elif key == ord('1'):  # Raising hand
-                i += 1
-                k = 1
-                continue
-            elif key == ord('2'):
-                i += 1
-                k = 2
-            elif key == ord('3'):
-                i += 1
-                k = 3
-                continue
-            elif key == ord('4'):
-                i += 1
-                k = 4
-            elif key == ord('a'):  # back
-                i -= 1
-                continue
-            elif key == ord('b'):  # back video
-                backVideo = True
-                step = 1
-                index_video_to_play -= 1
-                break
+                key = cv2.waitKey(1) & 0xFF
+                if key == ord('q'):
+                    break
+                elif key == ord('0'):  # Writing
+                    i += 1
+                    k = 0
+                    continue
+                elif key == ord('1'):  # Raising hand
+                    i += 1
+                    k = 1
+                    continue
+                elif key == ord('2'):
+                    i += 1
+                    k = 2
+                elif key == ord('3'):
+                    i += 1
+                    k = 3
+                    continue
+                elif key == ord('4'):
+                    i += 1
+                    k = 4
+                elif key == ord('a'):  # back
+                    i -= 1
+                    continue
+                elif key == ord('b'):  # back video
+                    backVideo = True
+                    step = 1
+                    index_video_to_play -= 1
+                    break
+            elif mode == 'examination':
+                frame = cv2.putText(frame, 'Back video:  b', (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                frame = cv2.putText(frame, 'Back:  a', (10, 130), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                frame = cv2.putText(frame, 'Turned around:   0', (10, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+                frame = cv2.putText(frame, 'Document exchange:    1', (10, 230), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+                frame = cv2.putText(frame, 'Nomal:   2', (10, 260), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+                cv2.imshow('frame', frame)
+
+                key = cv2.waitKey(1) & 0xFF
+                if key == ord('q'):
+                    break
+                elif key == ord('0'):  # Writing
+                    i += 1
+                    k = 0
+                    continue
+                elif key == ord('1'):  # Raising hand
+                    i += 1
+                    k = 1
+                    continue
+                elif key == ord('2'):
+                    i += 1
+                    k = 2
+                elif key == ord('a'):  # back
+                    i -= 1
+                    continue
+                elif key == ord('b'):  # back video
+                    backVideo = True
+                    step = 1
+                    index_video_to_play -= 1
+                    break
         else:
             break
-    if backVideo == False:
+
+    if backVideo is False:
         rows = np.stack([video, frame_1, label], axis=1)
         df = df.append(pd.DataFrame(rows, columns=cols), ignore_index=True)
         index_video_to_play += 1
