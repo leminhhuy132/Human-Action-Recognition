@@ -1,4 +1,4 @@
-<h1> Human Falling Detection and Tracking </h1>
+<h1> Human Action Recognition </h1>
 
 Using Tiny-YOLO oneclass to detect each person in the frame and use 
 [AlphaPose](https://github.com/MVIG-SJTU/AlphaPose) to get skeleton-pose and then use
@@ -39,12 +39,13 @@ frames by hand for training ST-GCN model.
 ## Basic Use
 
 1. Download all pre-trained models into ./Models folder.
-2. Run main.py
+2. Edit path to pre-trained models in config.py
+3. Run main.py
 ```
     python main.py ${video file or camera source}
 ```
 
 ## Reference
-
-- AlphaPose : https://github.com/Amanbhandula/AlphaPose
-- ST-GCN : https://github.com/yysijie/st-gcn
+- [Human-Falling-Detect-Tracks](https://github.com/GajuuzZ/Human-Falling-Detect-Tracks)
+- [AlphaPose](https://github.com/Amanbhandula/AlphaPose)
+- [ST-GCN](https://github.com/yysijie/st-gcn)

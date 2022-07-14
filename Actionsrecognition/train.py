@@ -10,9 +10,8 @@ from tqdm import tqdm
 from torch.utils import data
 from torch.optim.adadelta import Adadelta
 from sklearn.model_selection import train_test_split
-
+from config import class_names
 from Visualizer import plot_graphs, plot_confusion_metrix
-
 
 save_folder = 'saved/TSSTG(pts+mot)-01(cf+hm-hm)'
 
@@ -34,7 +33,6 @@ batch_size = 32
 
 data_files = ['../Data/train07.pkl',
               '../Data/test03.pkl']
-class_names = ['Standing', 'Walking', 'Sitting', 'Lying Down', 'Stand up', 'Sit down', 'Fall Down']
 num_class = len(class_names)
 
 

@@ -143,6 +143,7 @@ def vis_frame_fast(frame, im_res, joint_format='coco'):
     img = frame
     for human in im_res:  # ['result']:
         part_line = {}
+
         kp_preds = human['keypoints']
         kp_scores = human['kp_score']
         kp_preds = torch.cat((kp_preds, torch.unsqueeze((kp_preds[1, :]+kp_preds[2, :]) / 2, 0)))

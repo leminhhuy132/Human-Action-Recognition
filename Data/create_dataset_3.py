@@ -9,11 +9,12 @@ import pandas as pd
 from collections import Counter
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
+from config import class_names
 
-class_names = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk', 'Nomal']
+
 main_parts = ['Nose_x', 'Nose_y', 'LShoulder_x', 'LShoulder_y', 'RShoulder_x', 'RShoulder_y', 'LElbow_x', 'LElbow_y', 'RElbow_x',
               'RElbow_y', 'LWrist_x', 'LWrist_y',  'RWrist_x', 'RWrist_y']
-main_idx_parts = [1, 2, 7, 8, -1]  # 1.5
+main_idx_parts = [0, 1, 2, 3, 4, 5, 6, -1]  # 1.5
 csv_pose_file = 'Home-pose+score.csv'
 save_path = 'train.pkl'
 
@@ -76,12 +77,12 @@ def seq_label_smoothing(labels, max_step=10):
 
 
 def graphSample(labels):
-    class_num = np.zeros(7)
+    class_num = np.zeros(len(class_names))
     labels = labels.argmax(axis=1)
     s = Counter(labels)
     for i in s:
         class_num[i] = s[i]
-    idx_class = range(7)
+    idx_class = range(len(class_names))
     plt.bar(idx_class, class_num)
     plt.xticks(idx_class, class_names)
 
@@ -89,6 +90,15 @@ def graphSample(labels):
         plt.text(x + 0.02, y + 0.05, '%d' % y, ha='center', va='bottom')
     plt.savefig('../Data/graph.jpg')
     plt.show()
+
+
+def balance_training_data(feature, labels):
+    labels = labels.argmax(axis=1)
+    s = Counter(labels)
+    vol = []
+    for i in s:
+        vol.append(s[i])
+    varian()
 
 
 feature_set = np.empty((0, n_frames, 14, 3))
@@ -126,7 +136,7 @@ for vid in vid_list:
 
         # Weighting main parts score.
         scr = xys[:, :, -1].copy()
-        scr[:, main_idx_parts] = np.minimum(scr[:, main_idx_parts] * 1.5, 1.0)  # [1, 2, 7, 8, -1]
+        scr[:, main_idx_parts] = np.minimum(scr[:, main_idx_parts] * 1.5, 1.0)
         # ['LShoulder_s', 'RShoulder_s', 'LHip_s', 'RHip_s', 'center point']
 
         # Mean score.

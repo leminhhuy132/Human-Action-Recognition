@@ -1,12 +1,13 @@
 
 # mode = ['examination', 'study']
 mode = 'study'
+class_names = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk', 'Document exchange', 'Nomal']
 
-# class
+# class for mode
 if mode == 'study':
-    class_names = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk', 'Nomal']
+    class_names_study = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk']
 elif mode == 'examination':
-    class_names = ['Turned around', 'Document exchange', 'Nomal']
+    class_names_study = ['Turned around', 'Document exchange']
 
 # Model path
 yolo = '/home/minhhuy/Desktop/Python/Human-Falling-Detect-Tracks/Models/yolo-tiny-onecls/best-model.pth'

@@ -31,7 +31,7 @@ detector = TinyYOLOv3_onecls()
 # POSE MODEL.
 inp_h = 320
 inp_w = 256
-pose_estimator = SPPE_FastPose(inp_h, inp_w)
+pose_estimator = SPPE_FastPose('resnet50', inp_h, inp_w)
 class_names = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk', 'Nomal']
 # with score.
 columns = ['video', 'frame', 'Nose_x', 'Nose_y', 'Nose_s', 'LShoulder_x', 'LShoulder_y', 'LShoulder_s',
@@ -144,6 +144,7 @@ for vid in vid_list:
 
     cap.release()
     cv2.destroyAllWindows()
+
 
     if os.path.exists(save_path):
         df.to_csv(save_path, mode='a', header=False, index=False)
