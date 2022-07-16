@@ -17,7 +17,7 @@ from ActionsEstLoader import TSSTG
 
 #source = '../Data/test_video/test7.mp4'
 #source = '../Data/falldata/Home/Videos/video (2).avi'  # hard detect
-source = '../Data/falldata/Home/Videos/MOT16-03.mp4'
+source = 'Data/Home/demo/MOT16-03.avi'
 # source = 0
 
 
@@ -52,9 +52,9 @@ if __name__ == '__main__':
     #                     help='Show all bounding box from detection.')
     # par.add_argument('--show_skeleton', default=True, action='store_true',
     #                     help='Show skeleton pose.')
-    par.add_argument('--show_detected', default='False', type=str,
+    par.add_argument('--show_detected', default=False, type=bool,
                      help='Show all bounding box from detection.')
-    par.add_argument('--show_skeleton', type=str, default='True',
+    par.add_argument('--show_skeleton', type=bool, default=True,
                      help='Show skeleton pose.')
     par.add_argument('--save_out', type=str, default='',
                         help='Save display to video file.')
@@ -132,7 +132,7 @@ if __name__ == '__main__':
                                     ps['kp_score'].mean().numpy()) for ps in poses]
 
             # VISUALIZE.
-            if args.show_detected == 'True':
+            if args.show_detected:
                 for bb in detected[:, 0:5]:
                     frame = cv2.rectangle(frame, (bb[0], bb[1]), (bb[2], bb[3]), (0, 0, 255), 1)
 
@@ -157,14 +157,14 @@ if __name__ == '__main__':
                 out = action_model.predict(pts, frame.shape[:2])
                 action_name = action_model.class_names[out[0].argmax()]
                 action = '{}: {:.2f}%'.format(action_name, out[0].max() * 100)
-                if action_name == 'Fall Down':
-                    clr = (255, 0, 0)
-                elif action_name == 'Lying Down':
-                    clr = (255, 200, 0)
+                # if action_name == 'Fall Down':
+                #     clr = (255, 0, 0)
+                # elif action_name == 'Lying Down':
+                #     clr = (255, 200, 0)
 
             # VISUALIZE.
             if track.time_since_update == 0:
-                if args.show_skeleton == 'True':
+                if args.show_skeleton:
                     frame = draw_single(frame, track.keypoints_list[-1])
                 frame = cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0, 255, 0), 1)
                 frame = cv2.putText(frame, str(track_id), (center[0], center[1]), cv2.FONT_HERSHEY_COMPLEX,

@@ -116,22 +116,22 @@ for vid in vid_list:
             cur_row += 1
 
             # VISUALIZE.
-            frame = vis_frame_fast(frame, result)
-            frame = cv2.rectangle(frame, (bb[0], bb[1]), (bb[2], bb[3]), (0, 255, 0), 2)
-            frame = cv2.putText(frame, vid + '   Frame:' + str(i),
-                                (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
-            frame = cv2.putText(frame, 'Pose: {}, Score: {:.4f}'.format(class_names[cls_idx], scr),
-                                (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
-
-            if not len(annotation_file):
-                frame = cv2.putText(frame, 'No annotation',
-                                    (10, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
-
-            frame = frame[:, :, ::-1]
-            fps_time = time.time()
+            # frame = vis_frame_fast(frame, result)
+            # frame = cv2.rectangle(frame, (bb[0], bb[1]), (bb[2], bb[3]), (0, 255, 0), 2)
+            # frame = cv2.putText(frame, vid + '   Frame:' + str(i),
+            #                     (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
+            # frame = cv2.putText(frame, 'Pose: {}, Score: {:.4f}'.format(class_names[cls_idx], scr),
+            #                     (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
+            #
+            # if not len(annotation_file):
+            #     frame = cv2.putText(frame, 'No annotation',
+            #                         (10, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+            #
+            # frame = frame[:, :, ::-1]
+            # fps_time = time.time()
             i += 1
 
-            cv2.imshow('frame', frame)
+            # cv2.imshow('frame', frame)
             key = cv2.waitKey(1)
             if key & 0xFF == ord('q'):
                 break
@@ -142,7 +142,7 @@ for vid in vid_list:
         else:
             break
 
-    cap.release()
+    # cap.release()
     cv2.destroyAllWindows()
 
 

@@ -13,7 +13,7 @@ import time
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from config import class_names, mode
+from config import class_names
 from fn import vis_frame_fast
 import torch
 

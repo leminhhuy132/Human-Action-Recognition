@@ -10,12 +10,13 @@ from collections import Counter
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from config import class_names
+from angleLine import line_intersection, angle3pt
 
 
 main_parts = ['Nose_x', 'Nose_y', 'LShoulder_x', 'LShoulder_y', 'RShoulder_x', 'RShoulder_y', 'LElbow_x', 'LElbow_y', 'RElbow_x',
               'RElbow_y', 'LWrist_x', 'LWrist_y',  'RWrist_x', 'RWrist_y']
 main_idx_parts = [0, 1, 2, 3, 4, 5, 6, -1]  # 1.5
-csv_pose_file = 'Home-pose+score.csv'
+csv_pose_file = 'bth_pose.csv'
 save_path = 'train.pkl'
 
 # Params.
@@ -92,15 +93,51 @@ def graphSample(labels):
     plt.show()
 
 
-def balance_training_data(feature, labels):
-    labels = labels.argmax(axis=1)
-    s = Counter(labels)
-    vol = []
-    for i in s:
-        vol.append(s[i])
-    varian()
+def add_feature(df_annot):
+    print('Add angle feature...')
+    # LWrist_x = annot.iloc[:, 17].tolist()
+    # LWrist_y = annot.iloc[:, 18].tolist()
+    # RWrist_x = annot.iloc[:, 20].tolist()
+    # RWrist_x = annot.iloc[:, 21].tolist()
+    # LShoulder_x = annot.iloc[:, 5].tolist()
+    # LShoulder_y = annot.iloc[:, 6].tolist()
+    # RShoulder_x = annot.iloc[:, 8].tolist()
+    # RShoulder_y = annot.iloc[:, 9].tolist()
+    #
+    # LElbow_x = annot.iloc[:, 11].tolist()
+    # LElbow_y = annot.iloc[:, 12].tolist()
+    # RElbow_x = annot.iloc[:, 14].tolist()
+    # RElbow_y = annot.iloc[:, 15].tolist()
 
 
+    for i in range(len(df_annot)):
+        #LWrist-LElbow_x vs LShoulder-RShoulder
+        p1 = [df_annot.iloc[i, 17], df_annot.iloc[i, 18]]
+        p2 = [df_annot.iloc[i, 11], df_annot.iloc[i, 12]]
+        q1 = [df_annot.iloc[i, 5], df_annot.iloc[i, 6]]
+        q2 = [df_annot.iloc[i, 8], df_annot.iloc[i, 9]]
+
+        xc, yc = line_intersection((p1, p2), (q1, q2))
+        c_ = [xc, yc]
+        angleL = 180 - angle3pt(p1, c_, q1)
+        print(angleL)
+
+        # RWrist-RElbow_x vs LShoulder-RShoulder
+        p1 = [df_annot.iloc[i, 20], df_annot.iloc[i, 21]]
+        p2 = [df_annot.iloc[i, 14], df_annot.iloc[i, 15]]
+        q1 = [df_annot.iloc[i, 5], df_annot.iloc[i, 6]]
+        q2 = df_annot.iloc[i, 8], df_annot.iloc[i, 9]
+
+        xc, yc = line_intersection((p1, p2), (q1, q2))
+        c_ = [xc, yc]
+        angleR = 180 - angle3pt(p1, c_, q1)
+        print(angleR)
+        df_annot.loc[i, 'RAnkle_x'] = angleL/180
+        df_annot.loc[i, 'RAnkle_x'] = angleR/180
+        df_annot.loc[i, 'RAnkle_s'] = (df_annot.loc[i, 'LElbow_s'] + df_annot.loc[i, 'RElbow_s'] + df_annot.loc[i, 'LWrist_s'] + df_annot.loc[i, 'RWrist_s'])/4
+
+    
+add_feature(annot)
 feature_set = np.empty((0, n_frames, 14, 3))
 labels_set = np.empty((0, len(cols)))
 vid_list = annot['video'].unique()

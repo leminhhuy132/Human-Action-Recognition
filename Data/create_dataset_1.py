@@ -13,7 +13,7 @@ import time
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from config import class_names, mode
+from config import class_names
 
 
 video_folder = 'Home/videos/bth'
@@ -86,34 +86,31 @@ while index_video_to_play < len(video_list):
 
             frame = cv2.putText(frame, 'Back video:  b', (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
             frame = cv2.putText(frame, 'Back frame:  a', (10, 130), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-            frame = cv2.putText(frame, 'Raising hand:    0', (10, 230), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Turned around:    1', (10, 260), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Lie on the desk: 2', (10, 290), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Document exchange: 3', (10, 420), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
-            frame = cv2.putText(frame, 'Nomal:   4', (10, 450), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+            frame = cv2.putText(frame, 'No raising hand:    0', (10, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+            frame = cv2.putText(frame, 'Raising hand:    1', (10, 230), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
             cv2.imshow('frame', frame)
 
             key = cv2.waitKey(1) & 0xFF
             if key == ord('q'):
                 break
-            elif key == ord('0'):  # Writing
+            elif key == ord('0'):
                 i += 1
                 k = 0
                 continue
-            elif key == ord('1'):  # Raising hand
+            elif key == ord('1'):
                 i += 1
                 k = 1
                 continue
-            elif key == ord('2'):
-                i += 1
-                k = 2
-            elif key == ord('3'):
-                i += 1
-                k = 3
-                continue
-            elif key == ord('4'):
-                i += 1
-                k = 4
+            # elif key == ord('2'):
+            #     i += 1
+            #     k = 2
+            # elif key == ord('3'):
+            #     i += 1
+            #     k = 3
+            #     continue
+            # elif key == ord('4'):
+            #     i += 1
+            #     k = 4
             elif key == ord('a'):  # back frame
                 i -= 1
                 continue
