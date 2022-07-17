@@ -18,6 +18,7 @@ import numpy as np
 from DetectorLoader import TinyYOLOv3_onecls
 from PoseEstimateLoader import SPPE_FastPose
 from fn import vis_frame_fast
+from config import class_names
 
 save_path = 'Home-pose+score.csv'
 
@@ -32,7 +33,7 @@ detector = TinyYOLOv3_onecls()
 inp_h = 320
 inp_w = 256
 pose_estimator = SPPE_FastPose('resnet50', inp_h, inp_w)
-class_names = ['Writing', 'Raising hand', 'Turned around', 'Lie on the desk', 'Nomal']
+
 # with score.
 columns = ['video', 'frame', 'Nose_x', 'Nose_y', 'Nose_s', 'LShoulder_x', 'LShoulder_y', 'LShoulder_s',
            'RShoulder_x', 'RShoulder_y', 'RShoulder_s', 'LElbow_x', 'LElbow_y', 'LElbow_s', 'RElbow_x',

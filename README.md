@@ -5,7 +5,7 @@ Using Tiny-YOLO oneclass to detect each person in the frame and use
 [ST-GCN](https://github.com/yysijie/st-gcn) model to predict action from every 30 frames 
 of each person tracks.
 
-Which now support 7 actions: Standing, Walking, Sitting, Lying Down, Stand up, Sit down, Fall Down.
+Which now support 2 actions: Raising Hand and No raising hand.
 
 <div align="center">
     <img src="sample1.gif" width="416">
@@ -16,7 +16,7 @@ Which now support 7 actions: Standing, Walking, Sitting, Lying Down, Stand up, S
 - Python > 3.6
 - Pytorch > 1.3.1
 
-Original test run on: i7-8750H CPU @ 2.20GHz x12, GeForce RTX 2070 8GB, CUDA 10.2
+Original test run on: i7-11700F CPU @ 2.50GHz x16, GeForce RTX 3060 12GB, CUDA 11.1
 
 ## Data
 
@@ -39,8 +39,7 @@ frames by hand for training ST-GCN model.
 ## Basic Use
 
 1. Download all pre-trained models into ./Models folder.
-2. Edit path to pre-trained models in config.py
-3. Run main.py
+2. Run main.py
 ```
     python main.py ${video file or camera source}
 ```

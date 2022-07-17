@@ -71,7 +71,7 @@ class Models:
                                     ps['kp_score'].mean().numpy()) for ps in poses]
             if self.show_detected:
                 for bb in detected[:, 0:5]:
-                    frame = cv2.rectangle(frame, (bb[0], bb[1]), (bb[2], bb[3]), (0, 0, 255), 1)
+                    frame = cv2.rectangle(frame, (int(bb[0]), int(bb[1])), (int(bb[2]), int(bb[3])), (0, 0, 255), 1)
 
         self.tracker.update(detections)
         for i, track in enumerate(self.tracker.tracks):
@@ -88,10 +88,9 @@ class Models:
                 out = self.action_model.predict(pts, frame.shape[:2])
                 action_name = self.action_model.class_names[out[0].argmax()]
                 action = '{}: {:.2f}%'.format(action_name, out[0].max() * 100)
-                if action_name == 'Fall Down':
+                if action_name == 'Raising hand':
                     clr = (255, 0, 0)
-                elif action_name == 'Lying Down':
-                    clr = (255, 200, 0)
+
 
                 track.actions = out
 
@@ -135,7 +134,7 @@ class main:
         self.actions_graph()
 
         self.delay = 15
-        self.load_cam('../Data/falldata/Home/Videos/video (1).avi')
+        self.load_cam('Data/Home/demo/rais2.mp4')
         self.update()
 
     def preproc(self, image):

@@ -14,11 +14,16 @@ from fn import draw_single
 
 from Track.Tracker import Detection, Tracker
 from ActionsEstLoader import TSSTG
+import time
+from datetime import datetime
+import requests
+
+
 
 #source = '../Data/test_video/test7.mp4'
 #source = '../Data/falldata/Home/Videos/video (2).avi'  # hard detect
-source = 'Data/Home/demo/MOT16-03.avi'
-# source = 0
+# source = 'Data/Home/demo/MOT16-03.avi'
+source = '0'
 
 
 def preproc(image):
@@ -27,6 +32,18 @@ def preproc(image):
     image = resize_fn(image)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     return image
+
+
+def post_to_server(quantity, room='E112'):
+    now = datetime.now()
+    url = 'https://aabe-117-2-255-218.ap.ngrok.io/data'
+    info = {"hand_up": quantity,
+            "time": now.strftime("%H%M%S"),
+            "date": now.strftime("%Y%m%d"),
+            "room_number": str(room)}
+    print(info)
+    response = requests.post(url, json=info)
+    print(response)
 
 
 def kpt2bbox(kpt, ex=20):
@@ -102,8 +119,14 @@ if __name__ == '__main__':
         # codec = cv2.VideoWriter_fourcc(*'MPEG-4')
         writer = cv2.VideoWriter(args.save_out, codec, 30, (inp_dets * 2, inp_dets * 2))
 
+    # json
+    json_post = {}
+    id_rais = []
+    quantity = 0
+
     fps_time = 0
     f = 0
+    start_time = time.time()
     while cam.grabbed():
         f += 1
         frame = cam.getitem()
@@ -157,10 +180,16 @@ if __name__ == '__main__':
                 out = action_model.predict(pts, frame.shape[:2])
                 action_name = action_model.class_names[out[0].argmax()]
                 action = '{}: {:.2f}%'.format(action_name, out[0].max() * 100)
-                # if action_name == 'Fall Down':
-                #     clr = (255, 0, 0)
-                # elif action_name == 'Lying Down':
-                #     clr = (255, 200, 0)
+                if action_name == 'Raising hand':
+                    if track_id not in id_rais:
+                        quantity += 1
+                        id_rais.append(track_id)
+                        print('add id ', track_id)
+                    clr = (255, 0, 0)
+                else:
+                    if track_id in id_rais:
+                        id_rais.remove(track_id)
+                        print('remove id ', track_id)
 
             # VISUALIZE.
             if track.time_since_update == 0:
@@ -171,6 +200,14 @@ if __name__ == '__main__':
                                     0.4, (255, 0, 0), 2)
                 frame = cv2.putText(frame, action, (bbox[0] + 5, bbox[1] + 15), cv2.FONT_HERSHEY_COMPLEX,
                                     0.4, clr, 1)
+        # Check to post to server
+        end = time.time()
+        if end - start_time >= 5:
+            room = args.camera.split('/')[-1].split('.')[0]
+            start_time = time.time()
+            if quantity > 0:
+                post_to_server(quantity)
+                quantity = 0
 
         # Show Frame.
         frame = cv2.resize(frame, (0, 0), fx=2., fy=2.)

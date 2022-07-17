@@ -25,8 +25,8 @@ columns = ['video', 'frame', 'Nose_x', 'Nose_y', 'Nose_s', 'LShoulder_x', 'LShou
            'RKnee_x', 'RKnee_y', 'RKnee_s', 'LAnkle_x', 'LAnkle_y', 'LAnkle_s', 'RAnkle_x', 'RAnkle_y',
            'RAnkle_s', 'label']
 
-video_folder = 'Home/videos/bth'
-pose_file = 'bth_pose.csv'
+video_folder = 'Home/videos/raising hand'
+pose_file = 'Home-pose+score.csv'
 
 file_name = str(pose_file.split('.')[0]) + '_check.csv'
 if os.path.exists(file_name):
@@ -39,7 +39,6 @@ idx = np.where(idx)[0]
 annot = annot.drop(idx)
 
 video_list = annot.iloc[:, 0].unique()
-print(video_list)
 
 index_video_to_play = 0
 while index_video_to_play < len(video_list):
@@ -70,10 +69,10 @@ while index_video_to_play < len(video_list):
 
             frame = vis_frame_fast(frame, result_i)
 
-            frame = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
+            frame = cv2.resize(frame, (0, 0), fx=0.7, fy=0.7)
             frame = cv2.putText(frame, 'Videos: {}     Total_frames: {}        Frame: {}       Pose: {} '.format(
                 video_list[index_video_to_play], len(result), frames_idx[i], cls_name),
-                                (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.65, (255, 0, 0), 2)
+                                (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
             cv2.imshow('frame', frame)
 
             key = cv2.waitKey(1) & 0xFF
@@ -103,7 +102,6 @@ while index_video_to_play < len(video_list):
     cv2.destroyAllWindows()
 
     data = np.concatenate((np.reshape(video, (len(video), 1)), np.reshape(frames_idx, (len(frames_idx), 1)), result, np.reshape(label, (len(label), 1))), axis=1)
-    print(data)
     df = pd.DataFrame(columns=columns, data=data)
     if os.path.exists(file_name):
         df.to_csv(file_name, mode='a', header=False, index=False)
