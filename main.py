@@ -210,7 +210,7 @@ if __name__ == '__main__':
                 quantity = 0
 
         # Show Frame.
-        frame = cv2.resize(frame, (0, 0), fx=2., fy=2.)
+        frame = cv2.resize(frame, (0, 0), fx=3., fy=3.)
         frame = cv2.putText(frame, '%d, FPS: %f' % (f, 1.0 / (time.time() - fps_time)),
                             (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
         frame = frame[:, :, ::-1]
